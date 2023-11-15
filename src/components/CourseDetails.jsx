@@ -1,4 +1,5 @@
 import React from 'react';
+import InfoBox from './InfoBox';
 
 function CourseDetails({ courseName }) {
 	const todayDate = new Date(2023, 9, 13);
@@ -47,19 +48,6 @@ function CourseDetails({ courseName }) {
 		// Add more styling as needed
   };
 
-	const courseButtonStyle = {
-		padding: '50px',
-		marginRight: '50px',
-		marginLeft: '50px',
-		backgroundColor: '#F4364C',
-		color: '#ffffff',
-		border: 'solid',
-		borderRadius: '5px',
-		borderColor: 'ffffff',
-		cursor: 'pointer',
-		fontSize: '50px',
-	 };
-
 	return (
 		<div style={containerStyle}>
 			<h2>Course Details for {courseName}</h2>
@@ -70,18 +58,9 @@ function CourseDetails({ courseName }) {
 			</div>
 			<br />
 			<div style={previewStyle}>
-				<div style={boxStyle}>
-					{/* Content for Announcements */}
-				</div>
-				<div style={boxStyle}>
-					{/* Content for Current Module */}
-				</div>
+					<InfoBox type="announcement" courseName={courseName} />
+					<InfoBox type="module" courseName={courseName} />
 			</div>
-
-			<p>Course Materials</p>
-			<p>Assignments</p>
-			<p>Syllabus</p>
-			<p>Zoom</p>
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CourseDetails from './CourseDetails';
-import Announcements from './Announcements';
+import AnnouncementList from './AnnouncementList';
 import Assignments from './Assignments';
 import CourseMaterials from './CourseMaterials';
 import Modules from './Modules';
@@ -65,7 +65,7 @@ function Courses({ selectedAssignment }) {
       <div>
         <h1 style={headerStyle}>Courses</h1>
         {selectedAssignment ? (
-          <CourseDetails courseName={selectedAssignment.course} />
+          <div style={coursesContainerStyle}></div>
         ) : (
           <div>
             <div style={coursesContainerStyle}>
@@ -95,6 +95,8 @@ function Courses({ selectedAssignment }) {
               </Link>
             </div>
 
+            <CourseDetails courseName={selectedCourse} />
+            
             {selectedCourse && (
               <div>
                 <nav>
@@ -125,7 +127,7 @@ function Courses({ selectedAssignment }) {
         )}
 
         <Routes>
-          <Route path="/courses/:course/announcements" element={<Announcements />} />
+          <Route path="/courses/:course/announcements" element={<AnnouncementList />} />
           <Route path="/courses/:course/assignments" element={<Assignments />} />
           <Route path="/courses/:course/coursematerials" element={<CourseMaterials />} />
           <Route path="/courses/:course/modules" element={<Modules />} />
