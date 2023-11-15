@@ -7,6 +7,7 @@ import CourseMaterials from './CourseMaterials';
 import Modules from './Modules';
 import Syllabus from './Syllabus';
 import Zoom from './Zoom';
+import Grades from './Grades';
 
 function Courses({ selectedAssignment }) {
   const todayDate = new Date(2023, 9, 13);
@@ -108,6 +109,9 @@ function Courses({ selectedAssignment }) {
                       <Link to={`/courses/${selectedCourse}/assignments`}>Assignments</Link>
                     </li>
                     <li>
+                      <Link to={`/courses/${selectedCourse}/grades`}>Grades</Link>
+                    </li>
+                    <li>
                       <Link to={`/courses/${selectedCourse}/coursematerials`}>Course Materials</Link>
                     </li>
                     <li>
@@ -129,6 +133,7 @@ function Courses({ selectedAssignment }) {
         <Routes>
           <Route path="/courses/:course/announcements" element={<AnnouncementList selectedCourse={selectedCourse}/>} />
           <Route path="/courses/:course/assignments" element={<Assignments selectedCourse={selectedCourse}/>} />
+          <Route path="/courses/:course/grades" element={<Grades selectedCourse={selectedCourse}/>} />
           <Route path="/courses/:course/coursematerials" element={<CourseMaterials selectedCourse={selectedCourse}/>} />
           <Route path="/courses/:course/modules" element={<Modules selectedCourse={selectedCourse}/>} />
           <Route path="/courses/:course/syllabus" element={<Syllabus selectedCourse={selectedCourse} />} />

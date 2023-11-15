@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Assignments({ selectedCourse }) {
+function getRandomGrade() {
+  // Generate a random grade between 80 and 100
+  return (Math.random() * 20 + 80).toFixed(2);
+}
+
+function Assignments({ selectedCourse, updateGrades }) {
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [submittedAssignments, setSubmittedAssignments] = useState(new Set());
 
@@ -11,32 +16,29 @@ function Assignments({ selectedCourse }) {
       newSubmittedAssignments.add(assignmentNumber);
       return newSubmittedAssignments;
     });
+
+    const grade = getRandomGrade();
+    updateGrades && updateGrades(assignmentNumber, grade);
   };
 
   if (!selectedCourse) {
-    // Render a default message or redirect to another page
     return (
       <div>
-        <p>No course selected for assignments</p>
+        <p></p>
       </div>
     );
   }
 
-  // Convert the course name to a lowercase, hyphenated format
   const formattedCourseName = selectedCourse.toLowerCase().replace(/\s+/g, '_');
 
-  // Mapping of courses to the number of assignments
   const assignmentsMapping = {
     'computer_graphics': 9,
     'senior_design': 6,
     'ui_design': 8,
-    // Add more courses as needed
   };
 
-  // Get the number of assignments for the selected course
   const numberOfAssignments = assignmentsMapping[formattedCourseName] || 0;
 
-  // Generate links for assignments 01 to the actual number of assignments
   const assignmentLinks = Array.from({ length: numberOfAssignments }, (_, index) => {
     const assignmentNumber = index + 1;
     const formattedAssignmentNumber = assignmentNumber.toString().padStart(2, '0');
@@ -44,7 +46,7 @@ function Assignments({ selectedCourse }) {
     return (
       <li key={assignmentNumber}>
         <div>
-          <Link to={`/assignments/${formattedCourseName}/${formattedAssignmentNumber}`} target="_blank">
+          <Link to={`/src/data/${formattedCourseName}/assignments/assignment_${formattedAssignmentNumber}.html`} target="_blank">
             View Assignment {formattedAssignmentNumber}
           </Link>
           <button onClick={() => setSelectedAssignment(formattedAssignmentNumber)}>
@@ -59,10 +61,8 @@ function Assignments({ selectedCourse }) {
         {selectedAssignment === formattedAssignmentNumber && (
           <div>
             <h4>Submission for Assignment {formattedAssignmentNumber}</h4>
-            {/* Add text entry or file upload options here */}
             <textarea placeholder="Enter your submission here" rows="4" cols="50" />
             <input type="file" accept=".pdf,.doc,.docx" />
-            {/* Add a submit button or any additional UI for submission */}
             <button
               onClick={() => {
                 markAsSubmitted(formattedAssignmentNumber);

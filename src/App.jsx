@@ -6,6 +6,8 @@ import Profile from './components/Profile';
 import Courses from './components/Courses';
 import Dashboard from './components/Dashboard';
 import AssignmentCalendar from './components/AssignmentCalendar';
+import Assignments from './components/Assignments';
+import Grades from './components/Grades';
 
 function App() {
   const appStyle = {
@@ -51,6 +53,15 @@ function App() {
     new Date(2023, 10, 25),
     new Date(2023, 11, 5),
   ];
+  const [grades, setGrades] = useState({});
+
+  const updateGrades = (assignmentNumber, grade) => {
+    // Update the grades state with the new grade
+    setGrades((prevGrades) => ({
+      ...prevGrades,
+      [assignmentNumber]: grade,
+    }));
+  };
 
   return (
     <div style={appStyle}>
@@ -70,6 +81,10 @@ function App() {
         {activeSection === 'calendar' && (
           <AssignmentCalendar assignmentDueDates={assignmentDueDates} />
         )}
+      </div>
+      <div>
+        <Assignments updateGrades={updateGrades} />
+        <Grades grades={grades} />
       </div>
     </div>
   );
