@@ -17,7 +17,7 @@ function Courses({ selectedAssignment }) {
 
   const headerStyle = {
     margin: '20px'
-  }
+  };
 
   const progressBarStyle = {
     width: '70%',
@@ -65,45 +65,73 @@ function Courses({ selectedAssignment }) {
       <div>
         <h1 style={headerStyle}>Courses</h1>
         {selectedAssignment ? (
-          <CourseDetails courseName={"selectedAssignment.course"} />
+          <CourseDetails courseName={selectedAssignment.course} />
         ) : (
-          <div style={coursesContainerStyle}>
-            <Link to="/courses/UI Design">
-              <button style={courseButtonStyle} onClick={() => handleCourseClick('UI Design')}>
-                UI Design
-              </button>
-            </Link>
-            <Link to="/courses/Senior Design">
-              <button style={courseButtonStyle} onClick={() => handleCourseClick('Senior Design')}>
-                Senior Design
-              </button>
-            </Link>
-            <Link to="/courses/Computer Graphics">
-              <button style={courseButtonStyle} onClick={() => handleCourseClick('Computer Graphics')}>
-                Computer Graphics
-              </button>
-            </Link>
+          <div>
+            <div style={coursesContainerStyle}>
+              <Link to="/courses/UI Design">
+                <button
+                  style={{ ...courseButtonStyle, backgroundColor: selectedCourse === 'UI Design' ? '#2a353f' : '#F4364C' }}
+                  onClick={() => handleCourseClick('UI Design')}
+                >
+                  UI Design
+                </button>
+              </Link>
+              <Link to="/courses/Senior Design">
+                <button
+                  style={{ ...courseButtonStyle, backgroundColor: selectedCourse === 'Senior Design' ? '#2a353f' : '#F4364C' }}
+                  onClick={() => handleCourseClick('Senior Design')}
+                >
+                  Senior Design
+                </button>
+              </Link>
+              <Link to="/courses/Computer Graphics">
+                <button
+                  style={{ ...courseButtonStyle, backgroundColor: selectedCourse === 'Computer Graphics' ? '#2a353f' : '#F4364C' }}
+                  onClick={() => handleCourseClick('Computer Graphics')}
+                >
+                  Computer Graphics
+                </button>
+              </Link>
+            </div>
+
+            {selectedCourse && (
+              <div>
+                <nav>
+                  <ul>
+                    <li>
+                      <Link to={`/courses/${selectedCourse}/announcements`}>Announcements</Link>
+                    </li>
+                    <li>
+                      <Link to={`/courses/${selectedCourse}/assignments`}>Assignments</Link>
+                    </li>
+                    <li>
+                      <Link to={`/courses/${selectedCourse}/coursematerials`}>Course Materials</Link>
+                    </li>
+                    <li>
+                      <Link to={`/courses/${selectedCourse}/modules`}>Modules</Link>
+                    </li>
+                    <li>
+                      <Link to={`/courses/${selectedCourse}/syllabus`}>Syllabus</Link>
+                    </li>
+                    <li>
+                      <Link to={`/courses/${selectedCourse}/zoom`}>Zoom</Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            )}
           </div>
         )}
-        
-        <Routes>
-          <Route path="/courses/UI Design" element={<CourseDetails courseName={selectedCourse} />} />
-          <Route path="/courses/Senior Design" element={<CourseDetails courseName={selectedCourse} />} />
-          <Route path="/courses/Computer Graphics" element={<CourseDetails courseName={selectedCourse} />} />
-        </Routes>
 
-        {/* {selectedCourse && (
-          <div>
-            <Routes>
-              <Route path="/courses/:course/announcements" element={<Announcements />} />
-              <Route path="/courses/:course/assignments" element={<Assignments />} />
-              <Route path="/courses/:course/coursematerials" element={<CourseMaterials />} />
-              <Route path="/courses/:course/modules" element={<Modules />} />
-              <Route path="/courses/:course/syllabus" element={<Syllabus />} />
-              <Route path="/courses/:course/zoom" element={<Zoom />} />
-            </Routes>
-          </div>
-        )} */}
+        <Routes>
+          <Route path="/courses/:course/announcements" element={<Announcements />} />
+          <Route path="/courses/:course/assignments" element={<Assignments />} />
+          <Route path="/courses/:course/coursematerials" element={<CourseMaterials />} />
+          <Route path="/courses/:course/modules" element={<Modules />} />
+          <Route path="/courses/:course/syllabus" element={<Syllabus selectedCourse={selectedCourse} />} />
+          <Route path="/courses/:course/zoom" element={<Zoom />} />
+        </Routes>
       </div>
     </Router>
   );
