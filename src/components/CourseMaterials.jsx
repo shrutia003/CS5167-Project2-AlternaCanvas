@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 function CourseMaterials({ selectedCourse }) {
   if (!selectedCourse) {
     // Render a default message or redirect to another page
     return (
       <div>
-        <p></p>
+        <p>No course selected for course materials</p>
       </div>
     );
   }
@@ -29,9 +28,15 @@ function CourseMaterials({ selectedCourse }) {
 
     return (
       <li key={presentationNumber}>
-        <a href={presentationPath} download={`Presentation_${formattedPresentationNumber}.pptx`}>
-          Presentation {formattedPresentationNumber}
-        </a>
+        <div>
+          <p>Presentation {formattedPresentationNumber}</p>
+          <button onClick={() => window.open(presentationPath, '_blank')}>
+            View in Browser
+          </button>
+          <a href={presentationPath} download={`Presentation_${formattedPresentationNumber}.pptx`}>
+            <button>Download</button>
+          </a>
+        </div>
       </li>
     );
   });
