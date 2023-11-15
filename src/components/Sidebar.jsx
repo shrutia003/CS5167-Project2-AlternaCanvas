@@ -1,30 +1,69 @@
-function Sidebar() {
+import React from 'react';
+
+function Sidebar({ onProfileClick, onDashboardClick, onCoursesClick, onCalendarClick, onInboxClick }) {
 	const sidebarStyle = {
 		width: '100px',
 		backgroundColor: '#000000',
 	};
-	  
+
 	const navListStyle = {
 		listStyle: 'none',
 		padding: 0,
 	};
-	  
+
 	const navItemStyle = {
 		display: 'block',
 		padding: '10px',
 		textDecoration: 'none',
 		color: '#f4f4f4',
+		cursor: 'pointer',
 	};
-	
+
 	return (
 		<aside style={sidebarStyle}>
 			<nav>
 				<ul style={navListStyle}>
-					<li><a href="/profile" style={navItemStyle}>Profile</a></li>
-					<li><a href="/dashboard" style={navItemStyle}>Dashboard</a></li>
-					<li><a href="/courses" style={navItemStyle}>Courses</a></li>
-					<li><a href="/calendar" style={navItemStyle}>Calendar</a></li>
-					<li><a href="/inbox" style={navItemStyle}>Inbox</a></li>
+					<li>
+						<div
+							style={navItemStyle}
+							onClick={() => {
+								onProfileClick();
+							}}>
+							Profile
+						</div>
+					</li>
+					<li>
+						<div style={navItemStyle}
+							onClick={() => {
+								onDashboardClick();
+							}}>
+							Dashboard
+						</div>
+					</li>
+					<li>
+						<div style={navItemStyle}
+							onClick={() => {
+								onCoursesClick();
+							}}>
+							Courses
+						</div>
+					</li>
+					<li>
+						<div style={navItemStyle}
+							onClick={() => {
+								onCalendarClick();
+							}}>
+							Calendar
+						</div>
+					</li>
+					<li>
+						<div style={navItemStyle}
+							onClick={() => {
+								onInboxClick();
+							}}>
+							Inbox
+						</div>
+					</li>
 				</ul>
 			</nav>
 		</aside>

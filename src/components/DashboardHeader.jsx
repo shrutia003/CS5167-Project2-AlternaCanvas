@@ -34,7 +34,7 @@ function DashboardHeader() {
                 <div style={logoStyle}>
                     <img src="src/assets/UI_logo.png" alt="University Logo" style={{ height: '100%' }} />
                 </div>
-                <h1 style={titleStyle}>Dashboard</h1>
+                <h1 style={titleStyle}>Alterna-Canvas</h1>
             </div>
             <TopRightButtons />
         </header>
