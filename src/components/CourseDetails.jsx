@@ -2,6 +2,10 @@ import React from 'react';
 import InfoBox from './InfoBox';
 
 function CourseDetails({ courseName }) {
+	if (!courseName) {
+		return null; // or return <div></div> or any other placeholder content
+	  }
+	  
 	const todayDate = new Date(2023, 9, 13);
 	const semesterStart = new Date(2023, 7, 21);
 	const semesterEnd = new Date(2023, 11, 7);

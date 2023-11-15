@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function AnnouncementList({ selectedCourse }) {
@@ -21,21 +21,32 @@ function AnnouncementList({ selectedCourse }) {
     'UI Design': 4,
   };
 
+  // Initialize state to track viewed announcements
+  const [viewedAnnouncements, setViewedAnnouncements] = useState({});
+
   // Generate links for announcements
   const announcementLinks = Array.from({ length: announcementCounts[selectedCourse] }, (_, index) => {
     const announcementNumber = index + 1;
     const formattedAnnouncementNumber = announcementNumber.toString().padStart(2, '0');
     const announcementPath = `/src/data/${formattedCourseName}/announcements/announcement_${formattedAnnouncementNumber}.html`;
 
+    // Check if the announcement has been viewed
+    const isViewed = viewedAnnouncements[announcementNumber];
 
     return (
       <li key={announcementNumber}>
-        <Link to={announcementPath} target="_blank">
+        <Link to={announcementPath} target="_blank" onClick={() => markAsViewed(announcementNumber)}>
           Announcement {formattedAnnouncementNumber}
         </Link>
+        {isViewed && <span style={{ color: 'green', marginLeft: '5px' }}>✅</span>}
       </li>
     );
   });
+
+  // Function to mark an announcement as viewed
+  const markAsViewed = (announcementNumber) => {
+    setViewedAnnouncements((prevViewed) => ({ ...prevViewed, [announcementNumber]: true }));
+  };
 
   return (
     <div>

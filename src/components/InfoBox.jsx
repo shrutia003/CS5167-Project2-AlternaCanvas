@@ -2,11 +2,16 @@ import React from 'react';
 import Announcement from './Announcement';
 
 function InfoBox({ type, courseName }) {
-    // Determine the content and header based on the 'type' prop
-    const headerText = type === 'announcement' ? 'Latest Announcement:' : 'Current Module:';
-    const sampleText = type === 'announcement' 
-        ? "Announcement content for " + courseName 
-        : "Module content for " + courseName;
+  // Check if a course has been selected
+  if (!courseName) {
+    return null; // or return <div></div> or any other placeholder content
+  }
+
+  // Determine the content and header based on the 'type' prop
+  const headerText = type === 'announcement' ? 'Latest Announcement:' : 'Current Module:';
+  const sampleText = type === 'announcement'
+    ? "Announcement content for " + courseName
+    : "Module content for " + courseName;
 
     // Styles
     const boxStyle = {
