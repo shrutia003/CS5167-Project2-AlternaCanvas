@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Sidebar({ onProfileClick, onDashboardClick, onCoursesClick, onCalendarClick, onInboxClick }) {
+function Sidebar({ onProfileClick, onDashboardClick, onCoursesClick, onCalendarClick }) {
 	const sidebarStyle = {
 		width: '100px',
 		backgroundColor: '#000000',
@@ -54,14 +54,6 @@ function Sidebar({ onProfileClick, onDashboardClick, onCoursesClick, onCalendarC
 								onCalendarClick();
 							}}>
 							Calendar
-						</div>
-					</li>
-					<li>
-						<div style={navItemStyle}
-							onClick={() => {
-								onInboxClick();
-							}}>
-							Inbox
 						</div>
 					</li>
 				</ul>

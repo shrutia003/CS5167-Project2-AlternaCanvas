@@ -6,7 +6,6 @@ import Profile from './components/Profile';
 import Courses from './components/Courses';
 import Dashboard from './components/Dashboard';
 import AssignmentCalendar from './components/AssignmentCalendar';
-import Inbox from './components/Inbox';
 
 function App() {
   const appStyle = {
@@ -41,10 +40,6 @@ function App() {
     setActiveSection('calendar');
   };
 
-  const handleInboxClick = () => {
-    setActiveSection('inbox');
-  };
-
   const handleAssignmentClick = (assignment) => {
     setSelectedAssignment(assignment);
     setActiveSection('courses');
@@ -66,13 +61,11 @@ function App() {
           onDashboardClick={handleDashboardClick}
           onCoursesClick={handleCoursesClick}
           onCalendarClick={handleCalendarClick}
-          onInboxClick={handleInboxClick}
         />
         {activeSection === 'dashboard' && (
           <Dashboard onAssignmentClick={handleAssignmentClick} />
         )}
         {activeSection === 'profile' && <Profile />}
-        {activeSection === 'inbox' && <Inbox />}
         {activeSection === 'courses' && <Courses selectedAssignment={selectedAssignment} />}
         {activeSection === 'calendar' && (
           <AssignmentCalendar assignmentDueDates={assignmentDueDates} />
