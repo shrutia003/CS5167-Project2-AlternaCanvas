@@ -11,6 +11,14 @@ function Dashboard({ onAssignmentClick }) {
     { id: 3, course: 'Computer Graphics', title: 'Assignment 3', dueDate: '2023-12-05' },
   ];
 
+  const headerStyle = {
+    margin: '20px'
+  }
+
+  const divStyle = {
+    margin: '20px'
+  }
+
   const assignmentStyle = {
     padding: '20px',
     marginBottom: '20px',
@@ -29,18 +37,20 @@ function Dashboard({ onAssignmentClick }) {
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      <h2>Your Assignments</h2>
-      {assignments.map((assignment) => (
-        <div
-          key={assignment.id}
-          onClick={() => handleAssignmentClick(assignment)}
-          style={assignmentStyle}
-        >
-          {assignment.course} - {assignment.title} (Due: {assignment.dueDate})
-        </div>
-      ))}
-      {selectedAssignment && <CourseDetails courseName={selectedAssignment.course} />}
+      <h1 style={headerStyle}>Dashboard</h1>
+      <div style={divStyle}>
+        <h2>Your Assignments</h2>
+        {assignments.map((assignment) => (
+          <div
+            key={assignment.id}
+            onClick={() => handleAssignmentClick(assignment)}
+            style={assignmentStyle}
+          >
+            {assignment.course} - {assignment.title} (Due: {assignment.dueDate})
+          </div>
+        ))}
+        {selectedAssignment && <CourseDetails courseName={selectedAssignment.course} />}
+      </div>
     </div>
   );
 }

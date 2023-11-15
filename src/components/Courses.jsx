@@ -15,6 +15,10 @@ function Courses({ selectedAssignment }) {
 
   const progress = ((todayDate - semesterStart) / (semesterEnd - semesterStart)) * 100;
 
+  const headerStyle = {
+    margin: '20px'
+  }
+
   const progressBarStyle = {
     width: '70%',
     height: '20px',
@@ -36,7 +40,7 @@ function Courses({ selectedAssignment }) {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '20px',
-    backgroundColor: '#36454F',
+    background: 'linear-gradient(45deg, #36454F, #29323c)',
     color: '#F6F6F6',
   };
 
@@ -59,9 +63,9 @@ function Courses({ selectedAssignment }) {
   return (
     <Router>
       <div>
-        <h1>Courses</h1>
+        <h1 style={headerStyle}>Courses</h1>
         {selectedAssignment ? (
-          <CourseDetails courseName={selectedAssignment.course} />
+          <CourseDetails courseName={"selectedAssignment.course"} />
         ) : (
           <div style={coursesContainerStyle}>
             <Link to="/courses/UI Design">
@@ -83,14 +87,13 @@ function Courses({ selectedAssignment }) {
         )}
         
         <Routes>
-          <Route path="/courses/UI Design" element={<CourseDetails />} />
-          <Route path="/courses/Senior Design" element={<CourseDetails />} />
-          <Route path="/courses/Computer Graphics" element={<CourseDetails />} />
+          <Route path="/courses/UI Design" element={<CourseDetails courseName={selectedCourse} />} />
+          <Route path="/courses/Senior Design" element={<CourseDetails courseName={selectedCourse} />} />
+          <Route path="/courses/Computer Graphics" element={<CourseDetails courseName={selectedCourse} />} />
         </Routes>
 
-        {selectedCourse && (
+        {/* {selectedCourse && (
           <div>
-            <h2>Course Details for {selectedCourse}</h2>
             <Routes>
               <Route path="/courses/:course/announcements" element={<Announcements />} />
               <Route path="/courses/:course/assignments" element={<Assignments />} />
@@ -100,7 +103,7 @@ function Courses({ selectedAssignment }) {
               <Route path="/courses/:course/zoom" element={<Zoom />} />
             </Routes>
           </div>
-        )}
+        )} */}
       </div>
     </Router>
   );

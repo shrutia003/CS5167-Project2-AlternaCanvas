@@ -14,8 +14,16 @@ function Profile() {
 
   const enrolledCourses = ['UI Design', 'Senior Design', 'Computer Graphics'];
 
+  const headerStyle = {
+    margin: '20px'
+  }
+
+  const divStyle = {
+    margin: '20px'
+  }
+
   const progressBarStyle = {
-    width: '400%', 
+    width: '400px', 
     height: '20px', 
     backgroundColor: '#e0e0e0', 
     borderRadius: '5px',
@@ -31,23 +39,25 @@ function Profile() {
 
   return ( //needs some styling help
     <div>
-      <h1>Profile</h1>
-      <p>Date: {todayDate.toDateString()}</p>
-      <p >Semester Progress:</p>
-      <div style={progressBarStyle }>
-        <div style={progressFillStyle}></div>
+      <h1 style={headerStyle}>Profile</h1>
+      <div style={divStyle}>
+        <p>Date: {todayDate.toDateString()}</p>
+        <p >Semester Progress:</p>
+        <div style={progressBarStyle }>
+          <div style={progressFillStyle}></div>
+        </div>
+        <br />
+        <p>Name: {studentName}</p>
+        <p>ID: {studentId}</p>
+        <p>Grade and Major: {gradeAndMajor}</p>
+        <p>Graduation: {graduationStatus}</p>
+        <p>Enrolled Courses:</p>
+        <ul>
+          {enrolledCourses.map((course, index) => (
+            <li key={index}>{course}</li>
+          ))}
+        </ul>
       </div>
-      <br />
-      <p>Name: {studentName}</p>
-      <p>ID: {studentId}</p>
-      <p>Grade and Major: {gradeAndMajor}</p>
-      <p>Graduation: {graduationStatus}</p>
-      <p>Enrolled Courses:</p>
-      <ul>
-        {enrolledCourses.map((course, index) => (
-          <li key={index}>{course}</li>
-        ))}
-      </ul>
     </div>
   );
 }

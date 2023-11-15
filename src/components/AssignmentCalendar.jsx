@@ -5,6 +5,14 @@ import 'react-calendar/dist/Calendar.css';
 import './Calendar.css'; // Import the custom styles
 
 function AssignmentCalendar({ assignmentDueDates }) {
+  const headerStyle = {
+    margin: '20px'
+  }
+
+  const divStyle = {
+    margin: '20px'
+  }
+
   const defaultDate = new Date(2023, 9, 13); // October is represented as 9 (zero-based index)
 
   const [selectedDate, setSelectedDate] = useState(defaultDate);
@@ -23,8 +31,8 @@ function AssignmentCalendar({ assignmentDueDates }) {
 
   return (
     <div>
-      <h1>Calendar</h1>
-      <div>
+      <h1 style={headerStyle}>Calendar</h1>
+      <div style={divStyle}>
         <Calendar
           onChange={setSelectedDate}
           value={selectedDate}
