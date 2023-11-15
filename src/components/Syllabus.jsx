@@ -5,7 +5,7 @@ function Syllabus({ selectedCourse }) {
     // Render a default message or redirect to another page
     return (
       <div>
-        <p>No course selected for syllabus</p>
+        <p>No course selected</p>
       </div>
     );
   }
