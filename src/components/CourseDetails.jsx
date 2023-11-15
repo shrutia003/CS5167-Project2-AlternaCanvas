@@ -8,7 +8,7 @@ function CourseDetails({ courseName }) {
     const progress = ((todayDate - semesterStart) / (semesterEnd - semesterStart)) * 100;
 
     const progressBarStyle = {
-        width: '400%', 
+        width: '60%', 
         height: '20px', 
         backgroundColor: '#e0e0e0', 
         borderRadius: '5px',

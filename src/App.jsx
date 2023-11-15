@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import DashboardHeader from './components/DashboardHeader';
 import Sidebar from './components/Sidebar';
 import Profile from './components/Profile';
@@ -39,7 +40,7 @@ function App() {
   const handleCalendarClick = () => {
     setActiveSection('calendar');
   };
-  
+
   const handleInboxClick = () => {
     setActiveSection('inbox');
   };
@@ -64,14 +65,14 @@ function App() {
           onProfileClick={handleProfileClick}
           onDashboardClick={handleDashboardClick}
           onCoursesClick={handleCoursesClick}
-		  onCalendarClick={handleCalendarClick}
-		  onInboxClick={handleInboxClick}
+          onCalendarClick={handleCalendarClick}
+          onInboxClick={handleInboxClick}
         />
         {activeSection === 'dashboard' && (
           <Dashboard onAssignmentClick={handleAssignmentClick} />
         )}
         {activeSection === 'profile' && <Profile />}
-		{activeSection === 'inbox' && <Inbox />}
+        {activeSection === 'inbox' && <Inbox />}
         {activeSection === 'courses' && <Courses selectedAssignment={selectedAssignment} />}
         {activeSection === 'calendar' && (
           <AssignmentCalendar assignmentDueDates={assignmentDueDates} />
