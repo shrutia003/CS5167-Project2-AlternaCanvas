@@ -127,12 +127,12 @@ function Courses({ selectedAssignment }) {
         )}
 
         <Routes>
-          <Route path="/courses/:course/announcements" element={<AnnouncementList />} />
-          <Route path="/courses/:course/assignments" element={<Assignments />} />
-          <Route path="/courses/:course/coursematerials" element={<CourseMaterials />} />
-          <Route path="/courses/:course/modules" element={<Modules />} />
+          <Route path="/courses/:course/announcements" element={<AnnouncementList selectedCourse={selectedCourse}/>} />
+          <Route path="/courses/:course/assignments" element={<Assignments selectedCourse={selectedCourse}/>} />
+          <Route path="/courses/:course/coursematerials" element={<CourseMaterials selectedCourse={selectedCourse}/>} />
+          <Route path="/courses/:course/modules" element={<Modules selectedCourse={selectedCourse}/>} />
           <Route path="/courses/:course/syllabus" element={<Syllabus selectedCourse={selectedCourse} />} />
-          <Route path="/courses/:course/zoom" element={<Zoom />} />
+          <Route path="/courses/:course/zoom" element={<Zoom selectedCourse={selectedCourse}/>} />
         </Routes>
       </div>
     </Router>
