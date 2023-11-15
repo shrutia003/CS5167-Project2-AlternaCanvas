@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Assignments({ selectedCourse }) {
+  const [selectedAssignment, setSelectedAssignment] = useState(null);
+  const [submittedAssignments, setSubmittedAssignments] = useState(new Set());
+
+  const markAsSubmitted = (assignmentNumber) => {
+    setSubmittedAssignments((prevSubmittedAssignments) => {
+      const newSubmittedAssignments = new Set(prevSubmittedAssignments);
+      newSubmittedAssignments.add(assignmentNumber);
+      return newSubmittedAssignments;
+    });
+  };
+
   if (!selectedCourse) {
     // Render a default message or redirect to another page
     return (
@@ -29,13 +40,39 @@ function Assignments({ selectedCourse }) {
   const assignmentLinks = Array.from({ length: numberOfAssignments }, (_, index) => {
     const assignmentNumber = index + 1;
     const formattedAssignmentNumber = assignmentNumber.toString().padStart(2, '0');
-    const assignmentPath = `/src/data/${formattedCourseName}/assignments/assignment_${formattedAssignmentNumber}.html`;
 
     return (
       <li key={assignmentNumber}>
-        <Link to={assignmentPath} target="_blank">
-          Assignment {formattedAssignmentNumber}
-        </Link>
+        <div>
+          <Link to={`/assignments/${formattedCourseName}/${formattedAssignmentNumber}`} target="_blank">
+            View Assignment {formattedAssignmentNumber}
+          </Link>
+          <button onClick={() => setSelectedAssignment(formattedAssignmentNumber)}>
+            Submit Assignment {formattedAssignmentNumber}
+          </button>
+          {submittedAssignments.has(formattedAssignmentNumber) && (
+            <span role="img" aria-label="checkmark">
+              ✔️
+            </span>
+          )}
+        </div>
+        {selectedAssignment === formattedAssignmentNumber && (
+          <div>
+            <h4>Submission for Assignment {formattedAssignmentNumber}</h4>
+            {/* Add text entry or file upload options here */}
+            <textarea placeholder="Enter your submission here" rows="4" cols="50" />
+            <input type="file" accept=".pdf,.doc,.docx" />
+            {/* Add a submit button or any additional UI for submission */}
+            <button
+              onClick={() => {
+                markAsSubmitted(formattedAssignmentNumber);
+                setSelectedAssignment(null);
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        )}
       </li>
     );
   });

@@ -6,7 +6,7 @@ function CourseMaterials({ selectedCourse }) {
     // Render a default message or redirect to another page
     return (
       <div>
-        <p>No course selected for course materials</p>
+        <p></p>
       </div>
     );
   }

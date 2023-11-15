@@ -1,10 +1,19 @@
 import React from 'react';
 
-function Zoom() {
+function Zoom({ selectedCourse }) {
+  if (!selectedCourse) {
+    // Render a default message or redirect to another page
+    return (
+      <div>
+        <p></p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h2>Zoom</h2>
-      {/* Add specific content for Zoom */}
+      <p>~Future Work~</p>
     </div>
   );
 }
