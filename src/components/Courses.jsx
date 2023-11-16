@@ -76,6 +76,11 @@ function Courses({ selectedAssignment }) {
   const handleCourseClick = (course) => {
     setSelectedCourse(course);
   };
+  const [grades, setGrades] = useState({
+    'UI Design': { assignments: 90, participation: 80, projects: 95, finalExam: 85 },
+    'Senior Design': { assignments: 85, participation: 90, exams: 80 },
+    'Computer Graphics': { assignments: 92, participation: 88, exams: 75 },
+  });
 
   return (
     <Router>
@@ -130,7 +135,7 @@ function Courses({ selectedAssignment }) {
             <Routes>
               <Route path="/courses/:course/announcements" element={<AnnouncementList selectedCourse={selectedCourse} />} />
               <Route path="/courses/:course/assignments" element={<Assignments selectedCourse={selectedCourse} />} />
-              <Route path="/courses/:course/grades" element={<Grades selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/grades" element={<Grades selectedCourse={selectedCourse} grades={grades[selectedCourse]}/>} />
               <Route path="/courses/:course/coursematerials" element={<CourseMaterials selectedCourse={selectedCourse} />} />
               <Route path="/courses/:course/modules" element={<Modules selectedCourse={selectedCourse} />} />
               <Route path="/courses/:course/syllabus" element={<Syllabus selectedCourse={selectedCourse} />} />
