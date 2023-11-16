@@ -22,7 +22,7 @@ function App() {
     flex: 1,
   };
 
-  const [activeSection, setActiveSection] = useState('dashboard');
+  const [activeSection, setActiveSection] = useState('courses');
   const [selectedAssignment, setSelectedAssignment] = useState(null);
 
   const handleProfileClick = () => {

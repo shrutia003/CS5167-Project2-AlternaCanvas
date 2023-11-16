@@ -69,7 +69,7 @@ function CourseDetails({ courseName, completedAssignments }) {
 			<br />
 			<div style={previewStyle}>
 				<InfoBox type="announcement" courseName={courseName} style={boxStyle} />
-				<InfoBox type="module" courseName={courseName} style={boxStyle} />
+				{/* <InfoBox type="module" courseName={courseName} style={boxStyle} /> */}
 			</div>
 		</div>
 	);

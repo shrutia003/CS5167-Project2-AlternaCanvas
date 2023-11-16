@@ -66,11 +66,11 @@ function Profile() {
       <h1 style={headerStyle}>Profile</h1>
       <div style={divStyle}>
         <p>Date: {todayDate.toDateString()}</p>
-        <p >Semester Progress:</p>
+        {/* <p >Semester Progress:</p>
         <div style={progressBarStyle }>
           <div style={progressFillStyle}></div>
         </div>
-        <br />
+        <br /> */}
         <p>Name: {studentName}</p>
         <p>ID: {studentId}</p>
         <p>Grade and Major: {gradeAndMajor}</p>

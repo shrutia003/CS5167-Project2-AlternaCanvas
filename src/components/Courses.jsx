@@ -10,15 +10,10 @@ import Zoom from './Zoom';
 import Grades from './Grades';
 
 function Courses({ selectedAssignment }) {
-  const todayDate = new Date(2023, 9, 13);
-  const semesterStart = new Date(2023, 7, 21);
-  const semesterEnd = new Date(2023, 11, 7);
-
-  const progress = ((todayDate - semesterStart) / (semesterEnd - semesterStart)) * 100;
-
   const headerStyle = {
     margin: '20px'
   };
+  
   const navigationLinksStyle = {
     display: 'flex',
     gap: '20px',
@@ -36,42 +31,7 @@ function Courses({ selectedAssignment }) {
     fontSize: '18px',
   };
 
-  const progressBarStyle = {
-    width: '70%',
-    height: '20px',
-    backgroundColor: '#e0e0e0',
-    borderRadius: '5px',
-    margin: '10px 0',
-  };
-
-  const progressFillStyle = {
-    width: `${progress}%`,
-    height: '100%',
-    backgroundColor: '#F4364C',
-    borderRadius: '5px',
-  };
-
   const [selectedCourse, setSelectedCourse] = useState(null);
-
-  const coursesContainerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '20px',
-    background: 'linear-gradient(45deg, #36454F, #29323c)',
-    color: '#F6F6F6',
-  };
-
-  const courseButtonStyle = {
-    padding: '50px',
-    marginRight: '50px',
-    marginLeft: '50px',
-    backgroundColor: '#F4364C',
-    color: '#ffffff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '50px',
-  };
 
   const handleCourseClick = (course) => {
     setSelectedCourse(course);
@@ -130,6 +90,49 @@ function Courses({ selectedAssignment }) {
   
   // //////////////////// //
 
+  const coursesContainerStyle = {
+    display: 'flex',
+    width: '1240px',
+    justifyContent: 'center', // Center the buttons as a group
+    alignItems: 'center', // Optional, if you want to align them vertically
+    padding: '20px',
+    background: 'linear-gradient(45deg, #36454F, #29323c)',
+    color: '#F6F6F6',
+    gap: '80px', // This sets the space between each item in the flex container
+  };
+
+  const getBackgroundImage = (selectedCourse, completedCount) => {
+    const formattedCourseName = selectedCourse.toLowerCase().replace(/\s+/g, '_');
+    const imageName = `${formattedCourseName}/${completedCount}.png`;
+    return `url(/src/assets/${imageName})`;
+  };
+
+  const courseButtonStyle = (course, selectedCourse, completedCount) => {
+    const isSelected = selectedCourse === course;
+    return {
+      width: '300px',
+      padding: '50px',
+      backgroundColor: 'transparent',
+      backgroundImage: getBackgroundImage(course, isSelected ? completedCount : 0),
+      color: '#ffffff',
+      outline: isSelected ? '3px solid white' : 'none', // Use outline for no layout shift
+      outlineOffset: '-3px', // Adjust as needed
+      boxShadow: isSelected ? '0 0 0 2px #F4364C' : 'none',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontSize: '50px',
+      transition: 'background-image 0.5s ease-in-out',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      textShadow: `
+      -2px -2px 0 #000,  
+      2px -2px 0 #000,
+      -2px  2px 0 #000,
+      2px  2px 0 #000`
+    }
+  };
+
   return (
     <Router>
       <div>
@@ -141,7 +144,7 @@ function Courses({ selectedAssignment }) {
             <div style={coursesContainerStyle}>
               <Link to="/courses/UI Design">
                 <button
-                  style={{ ...courseButtonStyle, backgroundColor: selectedCourse === 'UI Design' ? '#2a353f' : '#F4364C' }}
+                  style={courseButtonStyle('UI Design', selectedCourse, completedAssignments.size)}
                   onClick={() => handleCourseClick('UI Design')}
                 >
                   UI Design
@@ -149,7 +152,7 @@ function Courses({ selectedAssignment }) {
               </Link>
               <Link to="/courses/Senior Design">
                 <button
-                  style={{ ...courseButtonStyle, backgroundColor: selectedCourse === 'Senior Design' ? '#2a353f' : '#F4364C' }}
+                  style={courseButtonStyle('Senior Design', selectedCourse, completedAssignments.size)}
                   onClick={() => handleCourseClick('Senior Design')}
                 >
                   Senior Design
@@ -157,7 +160,7 @@ function Courses({ selectedAssignment }) {
               </Link>
               <Link to="/courses/Computer Graphics">
                 <button
-                  style={{ ...courseButtonStyle, backgroundColor: selectedCourse === 'Computer Graphics' ? '#2a353f' : '#F4364C' }}
+                  style={courseButtonStyle('Computer Graphics', selectedCourse, completedAssignments.size)}
                   onClick={() => handleCourseClick('Computer Graphics')}
                 >
                   Computer Graphics

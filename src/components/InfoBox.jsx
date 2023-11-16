@@ -30,6 +30,7 @@ function InfoBox({ type, courseName }) {
     // Styles
     const boxStyle = {
 		height: '300px',
+    width: '600px',
 		flexBasis: 'calc(50% - 10px)', // 10px padding
 		background: 'linear-gradient(45deg, #36454F, #29323c)',
 		border: 'none',

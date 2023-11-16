@@ -32,14 +32,14 @@ function Sidebar({ onProfileClick, onDashboardClick, onCoursesClick, onCalendarC
 							Profile
 						</div>
 					</li>
-					<li>
+					{/* <li>
 						<div style={navItemStyle}
 							onClick={() => {
 								onDashboardClick();
 							}}>
 							Dashboard
 						</div>
-					</li>
+					</li> */}
 					<li>
 						<div style={navItemStyle}
 							onClick={() => {
