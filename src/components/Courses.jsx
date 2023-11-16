@@ -77,10 +77,24 @@ function Courses({ selectedAssignment }) {
     setSelectedCourse(course);
   };
   const [grades, setGrades] = useState({
-    'UI Design': { assignments: 90, participation: 80, projects: 95, finalExam: 85 },
-    'Senior Design': { assignments: 85, participation: 90, exams: 80 },
-    'Computer Graphics': { assignments: 92, participation: 88, exams: 75 },
+    'UI Design': {
+      assignments: [90, 85, 92, 76, 84, 97], 
+      participation: [95], 
+      projects: [95, 90], 
+      // finalExam: [85], 
+    },
+    'Senior Design': {
+      assignments: [85, 88, 90, 87, 99, 92], 
+      participation: [90], 
+      exams: [80], 
+    },
+    'Computer Graphics': {
+      assignments: [92, 88, 90, 82, 86, 95], 
+      participation: [85], 
+      exams: [89], 
+    },
   });
+  
 
   return (
     <Router>

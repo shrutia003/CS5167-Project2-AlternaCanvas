@@ -1,19 +1,10 @@
 import React from 'react';
 
 function Grades({ grades, selectedCourse }) {
-  if (!selectedCourse) {
+  if (!selectedCourse || !grades) {
     return (
       <div>
-        <h3></h3>
-      </div>
-    );
-  }
-
-  if (!grades || !Object.keys(grades).length) {
-    return (
-      <div>
-        <h3>Grades for {selectedCourse} </h3>
-        <p>No grades available for display.</p>
+        <p></p>
       </div>
     );
   }
@@ -24,41 +15,42 @@ function Grades({ grades, selectedCourse }) {
     'UI Design': { assignments: 0.1, participation: 0.05, projects: 0.75, finalExam: 0.1 },
   };
 
-  // Calculate the total grade based on the grade breakdowns
-  const totalGrade = Object.entries(grades).reduce((total, [category, grade]) => {
-    return total + (grade * gradeBreakdowns[selectedCourse][category]);
-  }, 0);
-
-  // Calculate the total weight (sum of weights)
-  const totalWeight = Object.values(gradeBreakdowns[selectedCourse]).reduce((sum, weight) => sum + weight, 0);
-
-  // Create a mapping for category names to be displayed
   const categoryDisplayName = {
-    assignments: 'Assignments',
+    assignments: 'Assignment',
     participation: 'Participation',
-    exams: 'Exams',
-    projects: 'Projects',
+    exams: 'Exam',
+    projects: 'Project',
     finalExam: 'Final Exam',
   };
 
-  // Calculate the average grade
-  const averageGrade = ((totalGrade / totalWeight)).toFixed(2);
+  const totalGrade = Object.entries(grades).reduce((total, [category, categoryGrades]) => {
+    return total + (categoryGrades.reduce((sum, grade) => sum + grade, 0) / categoryGrades.length) * gradeBreakdowns[selectedCourse][category];
+  }, 0);
 
-  const formattedCourseName = selectedCourse.toLowerCase().replace(/\s+/g, '_');
-  const gradesPath = `/src/data/${formattedCourseName}/course_info/grading.xlsx`;
+  const totalWeight = Object.values(gradeBreakdowns[selectedCourse]).reduce((sum, weight) => sum + weight, 0);
+
+  const categoryAverages = Object.entries(grades).reduce((averages, [category, categoryGrades]) => {
+    const average = (categoryGrades.reduce((sum, grade) => sum + grade, 0) / categoryGrades.length).toFixed(2);
+    return { ...averages, [category]: average };
+  }, {});
 
   return (
     <div>
       <h3>{selectedCourse} Grades</h3>
       <ul>
-        {Object.entries(grades).map(([category, grade]) => (
-          <li key={category}>{categoryDisplayName[category]}: {grade}%</li>
+        {Object.entries(grades).map(([category, categoryGrades]) => (
+          <li key={category}>
+            <h3>{categoryDisplayName[category]} Grades:</h3>
+            {categoryGrades.map((grade, index) => (
+              <div key={index}>
+                {`${categoryDisplayName[category]} ${index + 1} - ${grade}%`}
+              </div>
+            ))}
+            - Average: {categoryAverages[category]}%
+          </li>
         ))}
       </ul>
-      <p>Average Grade: {averageGrade}%</p>
-      <a href={gradesPath} download={`grading.xlsx`}>
-        <button>Download Grade Breakdown</button>
-      </a>
+      <h3>Total Average Grade: {(totalGrade / totalWeight).toFixed(2)}%</h3>
     </div>
   );
 }
