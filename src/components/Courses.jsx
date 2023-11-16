@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CourseDetails from './CourseDetails';
 import AnnouncementList from './AnnouncementList';
@@ -76,6 +76,39 @@ function Courses({ selectedAssignment }) {
   const handleCourseClick = (course) => {
     setSelectedCourse(course);
   };
+
+  // ASSIGNMENT UPDATE HANDLER //
+
+  const [completedAssignments, setCompletedAssignments] = useState(new Set());
+
+  // Load completed assignments from local storage when selectedCourse changes
+  useEffect(() => {
+    const storedSubmissions = JSON.parse(localStorage.getItem('submittedAssignments') || '{}');
+    if (storedSubmissions[selectedCourse]) {
+      setCompletedAssignments(new Set(storedSubmissions[selectedCourse]));
+    } else {
+      setCompletedAssignments(new Set()); // Reset if no submissions for this course
+    }
+  }, [selectedCourse]);
+  
+  // Function to handle assignment submission
+  const handleAssignmentSubmit = (assignmentId) => {
+    setCompletedAssignments(prev => {
+      const updatedAssignments = new Set([...prev, assignmentId]);
+  
+      // Save the updated set to local storage
+      const storedSubmissions = JSON.parse(localStorage.getItem('submittedAssignments') || '{}');
+      storedSubmissions[selectedCourse] = Array.from(updatedAssignments);
+      localStorage.setItem('submittedAssignments', JSON.stringify(storedSubmissions));
+  
+      return updatedAssignments;
+    });
+  };
+
+  // ///////////////////////// //
+
+  // GRADE UPDATE HANDLER //
+
   const [grades, setGrades] = useState({
     'UI Design': {
       assignments: [90, 85, 92, 76, 84, 97], 
@@ -95,6 +128,7 @@ function Courses({ selectedAssignment }) {
     },
   });
   
+  // //////////////////// //
 
   return (
     <Router>
@@ -131,7 +165,10 @@ function Courses({ selectedAssignment }) {
               </Link>
             </div>
 
-            <CourseDetails courseName={selectedCourse} />
+            <CourseDetails
+              courseName={selectedCourse}
+              completedAssignments={completedAssignments}
+            />
 
 
             {selectedCourse && (
@@ -148,7 +185,7 @@ function Courses({ selectedAssignment }) {
 
             <Routes>
               <Route path="/courses/:course/announcements" element={<AnnouncementList selectedCourse={selectedCourse} />} />
-              <Route path="/courses/:course/assignments" element={<Assignments selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/assignments" element={<Assignments selectedCourse={selectedCourse} onAssignmentSubmit={handleAssignmentSubmit} />} />
               <Route path="/courses/:course/grades" element={<Grades selectedCourse={selectedCourse} grades={grades[selectedCourse]}/>} />
               <Route path="/courses/:course/coursematerials" element={<CourseMaterials selectedCourse={selectedCourse} />} />
               <Route path="/courses/:course/modules" element={<Modules selectedCourse={selectedCourse} />} />

@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import InfoBox from './InfoBox';
 
-function CourseDetails({ courseName }) {
+function CourseDetails({ courseName, completedAssignments }) {
 	if (!courseName) {
 		return null; 
 	}
+  
+	const formattedCourseName = courseName.toLowerCase().replace(/\s+/g, '_');
+	const assignmentsMapping = {
+		'computer_graphics': 9,
+		'senior_design': 6,
+		'ui_design': 8,
+	};
+	
+	// Calculate completion percentage
+	const totalAssignments = assignmentsMapping[formattedCourseName] || 0;;
+	const completedCount = completedAssignments.size;
+	const completionPercentage = completedCount > 0 ? (completedCount / totalAssignments) * 100 : 0;
 
-	const todayDate = new Date(2023, 9, 13);
-	const semesterStart = new Date(2023, 7, 21);
-	const semesterEnd = new Date(2023, 11, 7);
-
-	const progress = ((todayDate - semesterStart) / (semesterEnd - semesterStart)) * 100;
-
+	
 	const progressBarStyle = {
 		width: '60%',
 		height: '20px',
@@ -21,7 +28,7 @@ function CourseDetails({ courseName }) {
 	};
 
 	const progressFillStyle = {
-		width: `${progress}%`,
+		width: `${completionPercentage}%`,
 		height: '100%',
 		backgroundColor: '#F4364C',
 		borderRadius: '5px',
