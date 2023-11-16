@@ -3,9 +3,9 @@ import InfoBox from './InfoBox';
 
 function CourseDetails({ courseName }) {
 	if (!courseName) {
-		return null; // or return <div></div> or any other placeholder content
-	  }
-	  
+		return null; 
+	}
+
 	const todayDate = new Date(2023, 9, 13);
 	const semesterStart = new Date(2023, 7, 21);
 	const semesterEnd = new Date(2023, 11, 7);
@@ -13,22 +13,23 @@ function CourseDetails({ courseName }) {
 	const progress = ((todayDate - semesterStart) / (semesterEnd - semesterStart)) * 100;
 
 	const progressBarStyle = {
-		width: '60%', 
-		height: '20px', 
-		backgroundColor: '#e0e0e0', 
+		width: '60%',
+		height: '20px',
+		backgroundColor: '#e0e0e0',
 		borderRadius: '5px',
-		margin: '10px 0', 
+		margin: '10px 0',
 	};
 
 	const progressFillStyle = {
-		width: `${progress}%`, 
-		height: '100%', 
-		backgroundColor: '#F4364C', 
-		borderRadius: '5px', 
+		width: `${progress}%`,
+		height: '100%',
+		backgroundColor: '#F4364C',
+		borderRadius: '5px',
 	};
 
 	const containerStyle = {
-		margin: '20px'
+		margin: '20px',
+		paddingBottom: '-20px'
 	}
 
 	const previewStyle = {
@@ -49,21 +50,19 @@ function CourseDetails({ courseName }) {
 		justifyContent: 'center',
 		alignItems: 'center',
 		color: '#FFFFFF',
-		// Add more styling as needed
-  };
+	};
 
 	return (
 		<div style={containerStyle}>
 			<h2>Course Details for {courseName}</h2>
-			{/* Add specific details for each course as needed */}
 			<p >Semester Progress:</p>
-			<div style={progressBarStyle }>
+			<div style={progressBarStyle}>
 				<div style={progressFillStyle}></div>
 			</div>
 			<br />
 			<div style={previewStyle}>
-					<InfoBox type="announcement" courseName={courseName} />
-					<InfoBox type="module" courseName={courseName} />
+				<InfoBox type="announcement" courseName={courseName} style={boxStyle} />
+				<InfoBox type="module" courseName={courseName} style={boxStyle} />
 			</div>
 		</div>
 	);

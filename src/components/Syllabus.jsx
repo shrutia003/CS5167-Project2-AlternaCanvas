@@ -2,7 +2,6 @@ import React from 'react';
 
 function Syllabus({ selectedCourse }) {
   if (!selectedCourse) {
-    // Render a default message or redirect to another page
     return (
       <div>
         <p>No course selected</p>
@@ -10,7 +9,6 @@ function Syllabus({ selectedCourse }) {
     );
   }
 
-  // Convert the course name to a lowercase, hyphenated format
   const formattedCourseName = selectedCourse.toLowerCase().replace(/\s+/g, '_');
   const syllabusPath = `/src/data/${formattedCourseName}/course_info/syllabus.html`;
 

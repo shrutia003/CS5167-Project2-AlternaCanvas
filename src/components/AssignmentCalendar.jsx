@@ -1,8 +1,7 @@
-// AssignmentCalendar.jsx
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './Calendar.css'; // Import the custom styles
+import './Calendar.css'; 
 
 function AssignmentCalendar({ assignmentDueDates }) {
   const headerStyle = {
@@ -13,12 +12,11 @@ function AssignmentCalendar({ assignmentDueDates }) {
     margin: '20px'
   }
 
-  const defaultDate = new Date(2023, 9, 13); // October is represented as 9 (zero-based index)
+  const defaultDate = new Date(2023, 9, 13); 
 
   const [selectedDate, setSelectedDate] = useState(defaultDate);
 
   const tileContent = ({ date }) => {
-    // Check if the date is in the assignment due dates
     const isDueDate = assignmentDueDates.some(
       (dueDate) =>
         dueDate.getDate() === date.getDate() &&

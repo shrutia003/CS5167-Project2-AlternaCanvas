@@ -2,12 +2,10 @@ import React from 'react';
 import Announcement from './Announcement';
 
 function InfoBox({ type, courseName }) {
-  // Check if a course has been selected
   if (!courseName) {
     return null; // or return <div></div> or any other placeholder content
   }
 
-  // Determine the content and header based on the 'type' prop
   const headerText = type === 'announcement' ? 'Latest Announcement:' : 'Current Module:';
   const sampleText = type === 'announcement'
     ? "Announcement content for " + courseName
@@ -32,27 +30,25 @@ function InfoBox({ type, courseName }) {
 
     const headerStyle = {
         fontWeight: 'bold',
-        // position: 'absolute', // Position header absolutely to align it to the top left
-        top: '10px', // Align top edge with a 10px distance from the box's top edge
-        left: '10px', // Align left edge with a 10px distance from the box's left edge
-        margin: 0, // Remove default margin from header
+        top: '10px', 
+        left: '10px', 
+        margin: 0, 
         marginLeft: '40px',
         width: '100%',
-        textAlign: 'left', // Align text to the left
+        textAlign: 'left', 
     };
 
     const lineStyle = {
-        width: 'calc(100% - 20px)', // Subtract 20px (10px padding on each side)
-        height: '1px', // Line thickness
-        backgroundColor: '#ccc', // Line color
-        // position: 'absolute', // Position line absolutely
-        top: '40px', // Position below the header text
-        left: '10px', // Align with the left padding of the box
+        width: 'calc(100% - 20px)', 
+        height: '1px', 
+        backgroundColor: '#ccc', 
+        top: '40px',
+        left: '10px', 
     };
 
     const scrollableViewStyle = {
-        marginTop: '20px', // Make room for the header and line
-        height: '190px', // Adjust height to account for the header space
+        marginTop: '20px', 
+        height: '190px', 
         width: '100%',
         overflowY: 'auto',
         textAlign: 'justify',
@@ -64,7 +60,6 @@ function InfoBox({ type, courseName }) {
         textAlign: 'justify',
     };
 
-    // Sample data for demonstration, replace with actual data
     const announcementData = {
         title: "New Assignment Posted",
         date: "October 15, 2023",
@@ -75,7 +70,7 @@ function InfoBox({ type, courseName }) {
 
     // const buttonStyle = {
     //     display: 'block',
-    //     width: '100%', // Take the full width of the parent minus padding
+    //     width: '100%', 
     //     padding: '10px',
     //     margin: '10px 0',
     //     backgroundColor: 'red',

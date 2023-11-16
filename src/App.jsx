@@ -47,7 +47,6 @@ function App() {
     setActiveSection('courses');
   };
 
-  // Example assignment due dates
   const assignmentDueDates = [
     new Date(2023, 10, 20),
     new Date(2023, 10, 25),
@@ -56,7 +55,6 @@ function App() {
   const [grades, setGrades] = useState({});
 
   const updateGrades = (assignmentNumber, grade) => {
-    // Update the grades state with the new grade
     setGrades((prevGrades) => ({
       ...prevGrades,
       [assignmentNumber]: grade,

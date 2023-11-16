@@ -19,6 +19,22 @@ function Courses({ selectedAssignment }) {
   const headerStyle = {
     margin: '20px'
   };
+  const navigationLinksStyle = {
+    display: 'flex',
+    gap: '20px',
+    padding: '20px',
+    // background: 'linear-gradient(45deg, #36454F, #29323c)',
+    color: '#F6F6F6',
+  };
+
+  const navigationLinkStyle = {
+    padding: '10px',
+    backgroundColor: '#F4364C',
+    color: '#ffffff',
+    borderRadius: '5px',
+    textDecoration: 'none',
+    fontSize: '18px',
+  };
 
   const progressBarStyle = {
     width: '70%',
@@ -97,48 +113,31 @@ function Courses({ selectedAssignment }) {
             </div>
 
             <CourseDetails courseName={selectedCourse} />
-            
+
+
             {selectedCourse && (
-              <div>
-                <nav>
-                  <ul>
-                    <li>
-                      <Link to={`/courses/${selectedCourse}/announcements`}>Announcements</Link>
-                    </li>
-                    <li>
-                      <Link to={`/courses/${selectedCourse}/assignments`}>Assignments</Link>
-                    </li>
-                    <li>
-                      <Link to={`/courses/${selectedCourse}/grades`}>Grades</Link>
-                    </li>
-                    <li>
-                      <Link to={`/courses/${selectedCourse}/coursematerials`}>Course Materials</Link>
-                    </li>
-                    <li>
-                      <Link to={`/courses/${selectedCourse}/modules`}>Modules</Link>
-                    </li>
-                    <li>
-                      <Link to={`/courses/${selectedCourse}/syllabus`}>Syllabus</Link>
-                    </li>
-                    <li>
-                      <Link to={`/courses/${selectedCourse}/zoom`}>Zoom</Link>
-                    </li>
-                  </ul>
-                </nav>
+              <div style={navigationLinksStyle}>
+                <Link to={`/courses/${selectedCourse}/announcements`} style={navigationLinkStyle}>Announcements</Link>
+                <Link to={`/courses/${selectedCourse}/assignments`} style={navigationLinkStyle}>Assignments</Link>
+                <Link to={`/courses/${selectedCourse}/grades`} style={navigationLinkStyle}>Grades</Link>
+                <Link to={`/courses/${selectedCourse}/coursematerials`} style={navigationLinkStyle}>Course Materials</Link>
+                <Link to={`/courses/${selectedCourse}/modules`} style={navigationLinkStyle}>Modules</Link>
+                <Link to={`/courses/${selectedCourse}/syllabus`} style={navigationLinkStyle}>Syllabus</Link>
+                <Link to={`/courses/${selectedCourse}/zoom`} style={navigationLinkStyle}>Zoom</Link>
               </div>
             )}
+
+            <Routes>
+              <Route path="/courses/:course/announcements" element={<AnnouncementList selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/assignments" element={<Assignments selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/grades" element={<Grades selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/coursematerials" element={<CourseMaterials selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/modules" element={<Modules selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/syllabus" element={<Syllabus selectedCourse={selectedCourse} />} />
+              <Route path="/courses/:course/zoom" element={<Zoom selectedCourse={selectedCourse} />} />
+            </Routes>
           </div>
         )}
-
-        <Routes>
-          <Route path="/courses/:course/announcements" element={<AnnouncementList selectedCourse={selectedCourse}/>} />
-          <Route path="/courses/:course/assignments" element={<Assignments selectedCourse={selectedCourse}/>} />
-          <Route path="/courses/:course/grades" element={<Grades selectedCourse={selectedCourse}/>} />
-          <Route path="/courses/:course/coursematerials" element={<CourseMaterials selectedCourse={selectedCourse}/>} />
-          <Route path="/courses/:course/modules" element={<Modules selectedCourse={selectedCourse}/>} />
-          <Route path="/courses/:course/syllabus" element={<Syllabus selectedCourse={selectedCourse} />} />
-          <Route path="/courses/:course/zoom" element={<Zoom selectedCourse={selectedCourse}/>} />
-        </Routes>
       </div>
     </Router>
   );

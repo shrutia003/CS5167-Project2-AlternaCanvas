@@ -2,7 +2,6 @@ import React from 'react';
 
 function CourseMaterials({ selectedCourse }) {
   if (!selectedCourse) {
-    // Render a default message or redirect to another page
     return (
       <div>
         <p>No course selected for course materials</p>
@@ -10,17 +9,14 @@ function CourseMaterials({ selectedCourse }) {
     );
   }
 
-  // Convert the course name to a lowercase, hyphenated format
   const formattedCourseName = selectedCourse.toLowerCase().replace(/\s+/g, '_');
 
-  // Define the number of presentations for each course
   const presentationCounts = {
     'Computer Graphics': 23,
     'Senior Design': 8,
     'UI Design': 21,
   };
 
-  // Generate links for presentations
   const presentationLinks = Array.from({ length: presentationCounts[selectedCourse] }, (_, index) => {
     const presentationNumber = index + 1;
     const formattedPresentationNumber = presentationNumber.toString().padStart(2, '0');

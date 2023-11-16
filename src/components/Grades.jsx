@@ -1,11 +1,19 @@
 import React from 'react';
 
-function Grades({ grades }) {
-  if (!grades || !Object.keys(grades).length) {
-    // Handle the case when grades is undefined or an empty object
+function Grades({ grades, selectedCourse }) {
+  if (!selectedCourse) {
     return (
       <div>
-        <p></p>
+        <h3></h3>
+      </div>
+    );
+  }
+
+  if (!grades || !Object.keys(grades).length) {
+    return (
+      <div>
+        <h3>Grades for {selectedCourse} </h3>
+        <p>No grades available for display.</p>
       </div>
     );
   }
@@ -16,16 +24,19 @@ function Grades({ grades }) {
     Object.keys(grades).length
   ).toFixed(2);
 
+  const formattedCourseName = selectedCourse.toLowerCase().replace(/\s+/g, '_');
+  const gradesPath = `/src/data/${formattedCourseName}/course_info/grading.xlsx`;
+
   return (
     <div>
-      <h3>Grades</h3>
+      <h3>{selectedCourse} Grades</h3>
       <ul>
         {Object.entries(grades).map(([assignmentNumber, grade]) => (
           <li key={assignmentNumber}>Assignment {assignmentNumber}: {grade}%</li>
         ))}
       </ul>
       <p>Average Grade: {averageGrade}%</p>
-      <a href="/download-grades" download="grades.xlsx">
+      <a href={gradesPath} download={`grading.xlsx`}>
         <button>Download</button>
       </a>
     </div>

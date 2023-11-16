@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Modules({ selectedCourse }) {
   if (!selectedCourse) {
-    // Render a default message or redirect to another page
     return (
       <div>
         <p></p>
@@ -11,17 +10,14 @@ function Modules({ selectedCourse }) {
     );
   }
 
-  // Convert the course name to a lowercase, hyphenated format
   const formattedCourseName = selectedCourse.toLowerCase().replace(/\s+/g, '_');
 
-  // Define the number of modules for each course
   const moduleCounts = {
     'Computer Graphics': 16,
     'Senior Design': 0,
     'UI Design': 12,
   };
 
-  // Generate links for modules
   const moduleLinks = Array.from({ length: moduleCounts[selectedCourse] }, (_, index) => {
     const moduleNumber = index + 1;
     const formattedModuleNumber = moduleNumber.toString().padStart(2, '0');
