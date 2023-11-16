@@ -111,13 +111,13 @@ function Courses({ selectedAssignment }) {
 
   const [grades, setGrades] = useState({
     'UI Design': {
-      assignments: [90, 85, 92, 76, 84, 97], 
+      assignments: [90, 85, 92], 
       participation: [95], 
       projects: [95, 90], 
       // finalExam: [85], 
     },
     'Senior Design': {
-      assignments: [85, 88, 90, 87, 99, 92], 
+      assignments: [85, 88, 90, 87], 
       participation: [90], 
       exams: [80], 
     },
