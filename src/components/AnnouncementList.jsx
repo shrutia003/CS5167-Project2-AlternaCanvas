@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function AnnouncementList({ selectedCourse }) {
@@ -18,24 +18,36 @@ function AnnouncementList({ selectedCourse }) {
     'UI Design': 4,
   };
 
+  const [announcements, setAnnouncements] = useState([]);
   const [viewedAnnouncements, setViewedAnnouncements] = useState({});
 
-  const announcementLinks = Array.from({ length: announcementCounts[selectedCourse] }, (_, index) => {
-    const announcementNumber = index + 1;
-    const formattedAnnouncementNumber = announcementNumber.toString().padStart(2, '0');
-    const announcementPath = `/src/data/${formattedCourseName}/announcements/announcement_${formattedAnnouncementNumber}.html`;
+  useEffect(() => {
+    const fetchAnnouncements = async () => {
+      let fetchedAnnouncements = [];
 
-    const isViewed = viewedAnnouncements[announcementNumber];
+      for (let i = 1; i <= announcementCounts[selectedCourse]; i++) {
+        const announcementNumber = i.toString().padStart(2, '0');
+        const announcementPath = `/src/data/${formattedCourseName}/announcements/announcement_${announcementNumber}.html`;
 
-    return (
-      <li key={announcementNumber}>
-        <Link to={announcementPath} target="_blank" onClick={() => markAsViewed(announcementNumber)}>
-          Announcement {formattedAnnouncementNumber}
-        </Link>
-        {isViewed && <span style={{ color: 'green', marginLeft: '5px' }}>✅</span>}
-      </li>
-    );
-  });
+        try {
+          const response = await fetch(announcementPath);
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const title = doc.querySelector('h2')?.innerText;
+          const date = doc.querySelector('h3')?.innerText;
+
+          fetchedAnnouncements.push({ number: announcementNumber, title, date, path: announcementPath });
+        } catch (error) {
+          console.error('Error fetching announcement:', error);
+        }
+      }
+
+      setAnnouncements(fetchedAnnouncements);
+    };
+
+    fetchAnnouncements();
+  }, [selectedCourse]);
 
   const markAsViewed = (announcementNumber) => {
     setViewedAnnouncements((prevViewed) => ({ ...prevViewed, [announcementNumber]: true }));
@@ -44,7 +56,19 @@ function AnnouncementList({ selectedCourse }) {
   return (
     <div>
       <h3>Announcements for {selectedCourse}</h3>
-      <ul>{announcementLinks}</ul>
+      <ul>
+        {announcements.map(({ number, title, date, path }) => {
+          const isViewed = viewedAnnouncements[number];
+          return (
+            <li key={number}>
+              <Link to={path} target="_blank" onClick={() => markAsViewed(number)}>
+                {date} - {title}
+              </Link>
+              {isViewed && <span style={{ color: 'green', marginLeft: '5px' }}>✅</span>}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

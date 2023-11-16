@@ -1,5 +1,3 @@
-import TopRightButtons from './TopRightButtons';
-
 function DashboardHeader() {
     const headerStyle = {
         display: 'flex',
@@ -36,7 +34,6 @@ function DashboardHeader() {
                 </div>
                 <h1 style={titleStyle}>Alterna-Canvas</h1>
             </div>
-            <TopRightButtons />
         </header>
     );
 }
