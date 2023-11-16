@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CourseDetails from './CourseDetails';
 import AnnouncementList from './AnnouncementList';

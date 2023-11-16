@@ -37,6 +37,30 @@ function Profile() {
     borderRadius: '5px', 
   };
 
+  // Dev Function to clear submitted assignments from local storage
+  const clearSubmissions = () => {
+    localStorage.removeItem('submittedAssignments');
+  };
+
+  // Styles for the button
+  const buttonStyle = {
+    backgroundColor: '#F0342C',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    cursor: 'pointer',
+    opacity: 0, // Initially hidden
+  };
+
+  // Styles for the button on hover - handled by onMouseEnter and onMouseLeave
+  const buttonHoverStyle = {
+    ...buttonStyle,
+    opacity: 1, // Visible on hover
+  };
+
+  // State to handle hover style
+  const [hover, setHover] = React.useState(false);
+
   return ( //needs some styling help
     <div>
       <h1 style={headerStyle}>Profile</h1>
@@ -57,6 +81,14 @@ function Profile() {
             <li key={index}>{course}</li>
           ))}
         </ul>
+        <button 
+        style={hover ? buttonHoverStyle : buttonStyle} 
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={clearSubmissions}
+      >
+        RESET PROGRESS
+      </button>
       </div>
     </div>
   );

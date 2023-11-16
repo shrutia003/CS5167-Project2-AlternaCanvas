@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function getRandomGrade() {
@@ -10,10 +10,24 @@ function Assignments({ selectedCourse, updateGrades }) {
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [submittedAssignments, setSubmittedAssignments] = useState(new Set());
 
+  // Load submitted assignments from local storage when the component mounts
+  useEffect(() => {
+    const storedSubmissions = JSON.parse(localStorage.getItem('submittedAssignments') || '{}');
+    if (storedSubmissions[selectedCourse]) {
+      setSubmittedAssignments(new Set(storedSubmissions[selectedCourse]));
+    }
+  }, [selectedCourse]);
+
   const markAsSubmitted = (assignmentNumber) => {
     setSubmittedAssignments((prevSubmittedAssignments) => {
       const newSubmittedAssignments = new Set(prevSubmittedAssignments);
       newSubmittedAssignments.add(assignmentNumber);
+
+      // Save the updated set to local storage
+      const storedSubmissions = JSON.parse(localStorage.getItem('submittedAssignments') || '{}');
+      storedSubmissions[selectedCourse] = Array.from(newSubmittedAssignments);
+      localStorage.setItem('submittedAssignments', JSON.stringify(storedSubmissions));
+
       return newSubmittedAssignments;
     });
 
