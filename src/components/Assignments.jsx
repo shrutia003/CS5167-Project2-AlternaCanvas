@@ -6,7 +6,7 @@ function getRandomGrade() {
   return (Math.random() * 20 + 80).toFixed(2);
 }
 
-function Assignments({ selectedCourse, updateGrades }) {
+function Assignments({ selectedCourse, onAssignmentSubmit, updateGrades }) {
   const [selectedAssignment, setSelectedAssignment] = useState(null);
   const [submittedAssignments, setSubmittedAssignments] = useState(new Set());
 
@@ -27,6 +27,8 @@ function Assignments({ selectedCourse, updateGrades }) {
       const storedSubmissions = JSON.parse(localStorage.getItem('submittedAssignments') || '{}');
       storedSubmissions[selectedCourse] = Array.from(newSubmittedAssignments);
       localStorage.setItem('submittedAssignments', JSON.stringify(storedSubmissions));
+
+      onAssignmentSubmit(assignmentNumber);
 
       return newSubmittedAssignments;
     });
